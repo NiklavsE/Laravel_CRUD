@@ -1,32 +1,59 @@
-<DOCTYPE <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Add a product</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-<h1> Create a new product </h1>
+@extends('layout')
+
+@section('content')
+<h1 class="title" > Create a new product </h1>
+
 <form method="POST" action='/products'>
-    <div>
-        <textarea style='resize:none' rows='2' cols='20' name='name'></textarea>
-        <div class="text-danger"></div>
+    {{ csrf_field() }}
+
+    <div class="field" style="padding-top:10px;padding-bottom:10px">
+            <label class="label" for="name">Name</label>
+            <div class="control">
+            <input class="input {{ $errors->has('name') ? 'is-danger' : '' }} is-medium" type="text" name="name" placeholder="Name" required value="{{ old('name') }}">
     </div>
-    <div>
-        <input type="number" style='resize:none' rows='2' cols='20' name='price'/> 
+
+    <div class="field" style="padding-top:10px;padding-bottom:10px">
+            <label class="label" for="description">Description</label>
+            <div class="control">
+            <textarea class="textarea {{ $errors->has('description') ? 'is-danger' : '' }} is-medium" placeholder="Product description" name="description" required>{{ old('description') }}</textarea>
     </div>
-    <div>
-        <textarea style='resize:none' rows='2' cols='20' name='description'></textarea>
+    
+    <div class="field" style="padding-top:10px;padding-bottom:10px">
+            <label class="label" for="price">Price</label>
+            <div class="control">
+            <input class="input {{ $errors->has('price') ? 'is-danger' : '' }} is-medium" type="number" name="price" placeholder="Price" required value="{{ old('price') }}">
     </div>
-    <div>
-        <input type="number" style='resize:none' rows='2' cols='20' name='in_stock'/> 
+
+    <div class="field" style="padding-top:10px;padding-bottom:10px">
+            <label class="label" for="in_stock">In Stock</label>
+            <div class="control">
+            <input class="input {{ $errors->has('in_stock') ? 'is-danger' : '' }} is-medium"type="number" name="in_stock" placeholder="Number of items in stock" required value="{{ old('in_stock') }}">
     </div>
-    <div>
-        <input type= 'submit' class='btn btn-success' name='save' value='Save'> 
+
+    <br>
+
+    <div class="field is-grouped">
+        <p class="control">
+            <button class="button is-link">Save</button>
+        </p>
+    </form>
+    <form method="GET" action='/products'>
+        <p class="control">
+            <button class="button">Cancel</button>
+        </p>
     </div>
+
+    @if ($errors->any())
+    <br>
+        <div class="notification is-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li> {{ $error }} </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 </form>
-</body>
-</html>
+</div>
+@endsection
