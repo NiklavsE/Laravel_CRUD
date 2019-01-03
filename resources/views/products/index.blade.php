@@ -1,12 +1,20 @@
 @extends('layout')
 @section('content')
-    <h1 class='title'>PRODUCTS</h1>
-    <ul>
+    <br>
+    <h1 class='title has-text-left'>PRODUCTS</h1>
+    <br>
     @foreach ($prod as $product)
-        <li> 
-            <a href="/products/ {{ $product->id }}">
-            {{ $product->name }} 
-        </li>
+    <a href="/products/ {{ $product->id }}">
+    <div class="box is-dark">
+      <h1 class="title">
+      {{ $product->name }}
+      </h1>
+      <h2 class="subtitle">
+        {{ $product->description }}
+      </h2>
+    </div>
+    </a>
+    <br>
     @endforeach
-    </ul>
-@endsection
+@endsection 
+

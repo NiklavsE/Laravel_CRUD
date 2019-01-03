@@ -1,7 +1,9 @@
 @extends('layout')
 
 @section('content')
+    <br>
     <h1 class="Title">Edit Project</h1>
+
     <form method="POST" action="/products/ {{ $product->id }}"> 
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
@@ -32,28 +34,18 @@
 
     <div class="field is-grouped">
         <p class="control">
-            <button class="button is-link">Save</button>
+            <button class="button is-grey-darker">Save</button>
         </p>
     </form>
     <form method="POST" action='/products/{{ $product->id }}'>
     {{ method_field('DELETE') }}
     {{ csrf_field() }}
         <p class="control">
-            <button class="button is-danger">Delete</button>
+            <button class="button is-dark">Delete</button>
         </p>
     </form>
     </div>
 
-    @if ($errors->any())
-    <br>
-        <div class="notification is-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+@include('errors')
 
 @endsection

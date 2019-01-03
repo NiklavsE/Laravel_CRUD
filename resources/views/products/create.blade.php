@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<br>
 <h1 class="title" > Create a new product </h1>
 
 <form method="POST" action='/products'>
@@ -34,7 +35,7 @@
 
     <div class="field is-grouped">
         <p class="control">
-            <button class="button is-link">Save</button>
+            <button class="button is-grey">Save</button>
         </p>
     </form>
     <form method="GET" action='/products'>
@@ -43,16 +44,7 @@
         </p>
     </div>
 
-    @if ($errors->any())
-    <br>
-        <div class="notification is-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+@include('errors')
 
 </form>
 </div>
