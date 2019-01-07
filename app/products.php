@@ -3,23 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \Mail;
+use App\Events\ProductCreated;
 
 class products extends Model
 {
-    protected $fillable = [ 
-        'name',
-        'description',
-        'price',
-        'in_stock'
+    protected $guarded = [];
+
+    protected $dispatchesEvents = [
+        'created' => ProductCreated::class
     ];
 
-    public function tasks() 
+    public function owner()
     {
-
-        return $this->hasMany(Task::class);
-        
+        return $this->belongsTo(User::class);
     }
-
-
-
 }

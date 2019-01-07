@@ -5,12 +5,23 @@ namespace App\Http\Controllers;
 use App\products;
 use Illuminate\Http\Request;
 
+use App\Events\ProductCreated;
+
 class ProductsController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
-        $prod = products::all();
+        if (auth()->id() == 3) { 
+            $prod = products::all(); 
+        } else {
+            $prod = auth()->user()->products;
+        }
+        
         return view('products.index', compact('prod'));
     }
 
@@ -21,21 +32,18 @@ class ProductsController extends Controller
 
     public function store()
     {
-        $validated = request()->validate([
-            'name' => ['required','min:4', 'max:100'],
-            'description' => ['required','min:10', 'max:250'], 
-            'price' => ['required', 'max:15'], 
-            'in_stock' => ['required','max:15']
-        ]);
+        $validated = $this->validateProduct();
 
-        products::create($validated);
+        $validated['owner_id'] = auth()->id();
+
+        $product = products::create($validated);
         
         return redirect('/products');
-
     }
 
     public function show(products $product)
     {
+        $this->authorize('view', $product);
         return view('products.show', compact('product'));
     }
 
@@ -46,14 +54,7 @@ class ProductsController extends Controller
 
     public function update(products $product)
     {
-        $validated = request()->validate([
-            'name' => ['required','min:4', 'max:100'],
-            'description' => ['required','min:10', 'max:250'], 
-            'price' => ['required', 'max:15'], 
-            'in_stock' => ['required','max:15']
-        ]);
-
-        $product->update($validated);
+        $product->update($this->validateProduct());
 
         return redirect('/products');
     }
@@ -63,5 +64,15 @@ class ProductsController extends Controller
         $product->delete();
 
         return redirect('/products'); 
+    }
+
+    protected function validateProduct() 
+    {
+        return request()->validate([
+            'name' => ['required','min:4', 'max:100'],
+            'description' => ['required','min:10', 'max:190'], 
+            'price' => ['required', 'max:15'], 
+            'in_stock' => ['required','max:15']
+        ]);
     }
 }
