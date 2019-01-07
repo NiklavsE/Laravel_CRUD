@@ -74,6 +74,7 @@ class Controller extends BaseController
         abort_if($product->owner->name != auth()->user()->name,403);
         $product->delete();
         }
+        
         return redirect('/products'); 
     }
 
