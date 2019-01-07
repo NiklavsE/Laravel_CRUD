@@ -54,7 +54,7 @@ class ProductsPolicy
      */
     public function delete(User $user, products $products)
     {
-        //
+        return $products->owner_id == $user->id;
     }
 
     /**

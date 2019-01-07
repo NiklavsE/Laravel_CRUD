@@ -4,9 +4,11 @@
  
     <h1 class="Title">Edit Project</h1>
 
-    <form method="POST" action="/products/ {{ $product->id }}"> 
+    <form method="POST" action="/products/ {{ $product->id }}">
+
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
+        
         <div class="field" style="padding-top:10px;padding-bottom:10px">
             <label class="label" for="name">Name</label>
             <input class="input {{ $errors->has('name') ? 'is-danger' : '' }} is-medium" type="text" name="name" placeholder="Name" value="{{ $product->name }}" required >

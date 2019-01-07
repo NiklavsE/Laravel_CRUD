@@ -3,8 +3,8 @@
 @section('content')
 
 <h1 class="title" > Create a new product </h1>
-
 <form method="POST" action='/products'>
+
     {{ csrf_field() }}
 
     <div class="field" style="padding-top:10px;padding-bottom:10px">
