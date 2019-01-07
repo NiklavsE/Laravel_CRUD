@@ -9,8 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\products;
 use Illuminate\Http\Request;
-use App\Events\ProductCreated;
-
+use App\Http\Controllers\User; 
 
 class Controller extends BaseController
 {
@@ -69,8 +68,12 @@ class Controller extends BaseController
 
     public function destroy(products $product)
     {
+        if (auth()->id() == 3) { 
         $product->delete();
-
+        } else {
+        abort_if($product->owner->name != auth()->user()->name,403);
+        $product->delete();
+        }
         return redirect('/products'); 
     }
 
