@@ -71,8 +71,8 @@ class ProductsController extends Controller
         return request()->validate([
             'name' => ['required','min:4', 'max:100'],
             'description' => ['required','min:10', 'max:190'], 
-            'price' => ['required', 'max:15'], 
-            'in_stock' => ['required','max:15']
+            'price' => ['required', 'max:15','gte:0'], 
+            'in_stock' => ['required','max:15','gte:0']
         ]);
     }
 }
