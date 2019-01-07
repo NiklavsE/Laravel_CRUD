@@ -1,7 +1,7 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
-<br>
+
 <h1 class="title" > Create a new product </h1>
 
 <form method="POST" action='/products'>
@@ -35,8 +35,6 @@
             </div>
     </div>
 
-    <br>
-
     <div class="field is-grouped">
         <p class="control">
             <button class="button is-grey">Save</button>
@@ -45,7 +43,7 @@
 </form>
 <form method="GET" action="/products">
         <p class="control">
-            <button class="button">Cancel</button>
+            <button class="button is-black">Cancel</button>
         </p>
     </div>
 </form>

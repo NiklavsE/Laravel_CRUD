@@ -1,5 +1,4 @@
 @if ($errors->any())
-    <br>
         <div class="notification is-dark">
             <ul>
                 @foreach ($errors->all() as $error)
