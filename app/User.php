@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -28,10 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function products() 
-    { 
-        return $this->hasMany(products::class, 'owner_id');
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'owner_id');
     }
-
 }
-

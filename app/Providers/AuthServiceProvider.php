@@ -6,7 +6,6 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate;
 
-
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -15,21 +14,19 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\products' => 'App\Policies\ProductsPolicy',
-        products::class => ProductsPolicy::class
+        'App\Product' => 'App\Policies\ProductPolicy',
+        Product::class => ProductPolicy::class,
     ];
 
     /**
      * Register any authentication / authorization services.
-     * 
-     * @return void
      */
     public function boot(Gate $gate)
     {
         $this->registerPolicies();
 
-        $gate->before(function ($user) { 
-            if($user->id == 3) {
+        $gate->before(function ($user) {
+            if ($user->id == 3) {
                 return true;
             }
         });
