@@ -8,6 +8,25 @@
         {{ 'Nothing to display, please add a product' }}
     @endif
 
+    @if (session('message'))
+        <article class="message is-dark">
+            <div class="message-header">
+                <p>Product is created</p>
+                <button class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+                {{ session('message') }}   
+            </div>
+        </article>
+
+
+
+
+        <div class="hero is-black">
+            <strong></strong>
+        </div> 
+    @endif
+
     @foreach ($prod as $product)
         <a href="/products/ {{ $product->id }}">
             <div class="box is-dark">

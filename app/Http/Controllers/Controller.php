@@ -71,7 +71,7 @@ class Controller extends BaseController
         if (auth()->id() == 3) { 
         $product->delete();
         } else {
-        abort_if($product->owner->name != auth()->user()->name,403);
+        abort_if($product->owner->name != auth()->user()->name,401);
         $product->delete();
         }
         

@@ -16,11 +16,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\products' => 'App\Policies\ProductsPolicy',
+        products::class => ProductsPolicy::class
     ];
 
     /**
      * Register any authentication / authorization services.
-     *
+     * 
      * @return void
      */
     public function boot(Gate $gate)
