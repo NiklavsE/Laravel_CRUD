@@ -22,18 +22,18 @@ class Controller extends BaseController
 
     public function index()
     {
-        if (auth()->id() == 3) {
+        if (auth()->user()->isAdmin()) {
             $prod = Product::all();
         } else {
             $prod = auth()->user()->products;
         }
 
-        return view('Product.index', compact('prod'));
+        return view('product.index', compact('prod'));
     }
 
     public function create()
     {
-        return view('Product.create');
+        return view('product.create');
     }
 
     public function store()
@@ -46,38 +46,34 @@ class Controller extends BaseController
 
         session()->flash('message', 'Your product has been created');
 
-        return redirect('/products');
+        return redirect()->route('products.index');
     }
 
     public function show(Product $product)
     {
         $this->authorize('view', $product);
 
-        return view('Product.show', compact('product'));
+        return view('product.show', compact('product'));
     }
 
     public function edit(Product $product)
     {
-        return view('Product.edit', compact('product'));
+        return view('product.edit', compact('product'));
     }
 
     public function update(Product $product)
     {
         $product->update($this->validateProduct());
 
-        return view('Product.show', compact('product'));
+        return view('product.show', compact('product'));
     }
 
     public function destroy(Product $product)
     {
-        if (auth()->id() == 3) {
-            $product->delete();
-        } else {
-            abort_if($product->owner->name != auth()->user()->name, 401);
-            $product->delete();
-        }
+        $this->authorize('delete', $product);
+        $product->delete();
 
-        return redirect('/products');
+        return redirect()->route('products.index');
     }
 
     protected function validateProduct()

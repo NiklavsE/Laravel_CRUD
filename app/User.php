@@ -9,20 +9,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -30,5 +20,17 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class, 'owner_id');
+    }
+
+    /**
+     * function that checks if user is a admin and can perform restricted actions.
+     */
+    public function isAdmin()
+    {
+        if ($this->role == 'a') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

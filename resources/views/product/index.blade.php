@@ -2,11 +2,15 @@
 @section('content')
     <br>
         <h1 class='title has-text-left'>PRODUCTS</h1>
+        @if (Auth::user()->role == 'a')
+            {{ 'Logged in as administrator' }}
+            <br>
+        @endif 
     <br>
-
     @if (count($prod) == 0)
         {{ 'Nothing to display, please add a product' }}
     @endif
+    
 
     @if (session('message'))
         <article class="message is-dark">

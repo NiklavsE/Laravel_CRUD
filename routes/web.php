@@ -20,5 +20,3 @@ Route::get('/about', 'Controller@about');
 Route::resource('products', 'Controller');
 
 Auth::routes();
-
-
