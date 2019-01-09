@@ -12,7 +12,7 @@ class ProductPolicy
 
     public function view(User $user, Product $product)
     {
-        if ($user->role == 'a') {
+        if ($user->isAdmin()) {
             return true;
         } else {
             return $product->owner_id == $user->id;
@@ -21,7 +21,7 @@ class ProductPolicy
 
     public function update(User $user, Product $product)
     {
-        if ($user->role == 'a') {
+        if ($user->isAdmin()) {
             return true;
         } else {
             return $product->owner_id == $user->id;
@@ -30,7 +30,7 @@ class ProductPolicy
 
     public function delete(User $user, Product $product)
     {
-        if ($user->role == 'a') {
+        if ($user->isAdmin()) {
             return true;
         } else {
             return $product->owner_id == $user->id;
@@ -39,7 +39,7 @@ class ProductPolicy
 
     public function list(User $user)
     {
-        if ($user->role == 'a') {
+        if ($user->isAdmin()) {
             return true;
         } else {
             return false;
