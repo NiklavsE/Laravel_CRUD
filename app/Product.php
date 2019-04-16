@@ -3,15 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \Mail;
 use App\Events\ProductCreated;
 
-class products extends Model
+class Product extends Model
 {
     protected $guarded = [];
 
     protected $dispatchesEvents = [
-        'created' => ProductCreated::class
+        'created' => ProductCreated::class,
     ];
 
     public function owner()
